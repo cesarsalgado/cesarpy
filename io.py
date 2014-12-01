@@ -11,12 +11,14 @@ def get_all_x_names_from_dir(path_to_dir, x_equals_file=None, pattern=".*", sort
   else:
     node_check = lambda x: True
   nodes = []
-  for node_name in listdir(path_to_dir): 
+  node_name_list = listdir(path_to_dir)
+  if sort:
+    non_digit = re.compile(r'[^\d]+')
+    node_name_list.sort(key=lambda s: int(non_digit.sub('', s)))
+  for node_name in node_name_list: 
     path_node = join(path_to_dir, node_name)
     if node_check(path_node) and re.match(pattern, node_name):
       nodes.append(path_node if withpath else node_name)
-  if sort:
-    nodes.sort()
   return nodes
 
 
