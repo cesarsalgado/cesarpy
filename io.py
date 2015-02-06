@@ -1,6 +1,7 @@
 from os.path import isfile, isdir, join
 from os import listdir
 import re
+import json
 
 def get_all_x_names_from_dir(path_to_dir, x_equals_file=None, pattern=".*", sort=True, withpath=False):
   if x_equals_file != None:
@@ -30,3 +31,12 @@ def get_all_file_names_from_dir(path_to_dir, ext=None, pattern=".*", sort=True, 
 
 def get_all_dir_names_from_dir(path_to_dir, pattern=".*", sort=True, withpath=False):
   return get_all_x_names_from_dir(path_to_dir, False, pattern, sort, withpath)
+
+def save_dict_as_json(dict_, filename):
+  with open(filename, 'w') as outfile:
+    json.dump(dict_, outfile)
+
+def load_dict_from_json(filename):
+  with open(filename, 'r') as infile:
+    dict_ = json.loads(infile.read())
+    return dict_
