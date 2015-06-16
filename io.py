@@ -3,7 +3,7 @@ from os import listdir
 import re
 import json
 
-def get_all_x_names_from_dir(path_to_dir, x_equals_file=None, pattern=".*", sort=True, withpath=False):
+def get_all_x_names_from_dir(path_to_dir, x_equals_file=None, pattern=".*", sort=True, withpath=False, smart_sort=True):
   if x_equals_file != None:
     if x_equals_file:
       node_check = isfile
@@ -14,8 +14,11 @@ def get_all_x_names_from_dir(path_to_dir, x_equals_file=None, pattern=".*", sort
   nodes = []
   node_name_list = listdir(path_to_dir)
   if sort:
-    non_digit = re.compile(r'[^\d]+')
-    node_name_list.sort(key=lambda s: int(non_digit.sub('', s)))
+    if smart_sort:
+      non_digit = re.compile(r'[^\d]+')
+      node_name_list.sort(key=lambda s: int(non_digit.sub('', s)))
+    else:
+      node_name_list.sort()
   for node_name in node_name_list: 
     path_node = join(path_to_dir, node_name)
     if node_check(path_node) and re.match(pattern, node_name):
@@ -24,10 +27,10 @@ def get_all_x_names_from_dir(path_to_dir, x_equals_file=None, pattern=".*", sort
 
 
 # if ext is specified then pattern is ignored.
-def get_all_file_names_from_dir(path_to_dir, ext=None, pattern=".*", sort=True, withpath=False):
+def get_all_file_names_from_dir(path_to_dir, ext=None, pattern=".*", sort=True, withpath=False, smart_sort=True):
   if ext:
     pattern = ".*\.%s$" % ext
-  return get_all_x_names_from_dir(path_to_dir, True, pattern, sort, withpath)
+  return get_all_x_names_from_dir(path_to_dir, True, pattern, sort, withpath, smart_sort)
 
 def get_all_dir_names_from_dir(path_to_dir, pattern=".*", sort=True, withpath=False):
   return get_all_x_names_from_dir(path_to_dir, False, pattern, sort, withpath)
