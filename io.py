@@ -43,3 +43,7 @@ def load_dict_from_json(filename):
     with open(filename, 'r') as infile:
         dict_ = json.loads(infile.read())
         return dict_
+
+def read_lines(path):
+    with open(path, 'r') as f:
+        return f.read().split('\n')
