@@ -32,8 +32,8 @@ def get_all_file_names_from_dir(path_to_dir, ext=None, pattern=".*", sort=True, 
         pattern = ".*\.%s$" % ext
     return get_all_x_names_from_dir(path_to_dir, True, pattern, sort, withpath, numerical_sort)
 
-def get_all_dir_names_from_dir(path_to_dir, pattern=".*", sort=True, withpath=False):
-    return get_all_x_names_from_dir(path_to_dir, False, pattern, sort, withpath)
+def get_all_dir_names_from_dir(path_to_dir, pattern=".*", sort=True, withpath=False, numerical_sort=False):
+    return get_all_x_names_from_dir(path_to_dir, False, pattern, sort, withpath, numerical_sort)
 
 def save_dict_as_json(dict_, filename):
     with open(filename, 'w') as outfile:
